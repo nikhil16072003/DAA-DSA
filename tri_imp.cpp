@@ -64,13 +64,31 @@ class trie{
         return searchutil(root,word);
         
     }
+     bool prefixutil(trienode* root,string word){
+        if(word.length()==0){
+            return true;;
+        }
+        int index=word[0]-'A';
+        trienode* child;
+        if(root->children[index]!=NULL){
+            child=root->children[index];
+        }
+        else{
+            return false;
+        }
+        return prefixutil(child,word.substr(1));
+        
+    }
+    bool searchprefix(string word){
+        return prefixutil(root,word);
+    }
     
     
 };
 int main() {
     trie* t=new trie();
     t->insertword("abcde");
-    cout<<t->search("abcdex");
+    cout<<t->searchprefix("abcd");
 
     return 0;
 }
